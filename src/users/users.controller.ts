@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
+import { UsersDTO } from './dto/users.dto';
 
 @Controller('users')
 export class UsersController {
@@ -14,8 +12,8 @@ export class UsersController {
   }
 
   @Post('/')
-  createUser(@Body() body) {
-    console.log(body);
+  createUser(@Body() body: UsersDTO) {
+    console.log(JSON.stringify(body));
     this.usersRepository.saveUser(body);
     return { status: 'User created', data: { ...body } };
   }

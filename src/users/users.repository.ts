@@ -1,11 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { Injectable } from '@nestjs/common';
+import { UsersDTO } from './dto/users.dto';
 @Injectable()
 export class UsersRepository {
-  private users: any[] = [];
-  saveUser(user: any) {
+  private users: UsersDTO[] = [];
+
+  saveUser(user: UsersDTO) {
     this.users.push(user);
   }
+
   getUsers() {
     return this.users;
   }
