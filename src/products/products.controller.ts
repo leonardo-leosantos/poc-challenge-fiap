@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { ProductsRepository } from './products.repository';
+import { ProductsDTO } from './dto/products.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -14,7 +12,7 @@ export class ProductsController {
   }
 
   @Post('/')
-  createProduct(@Body() body) {
+  createProduct(@Body() body: ProductsDTO) {
     console.log(body);
     this.productsRepository.saveProduct(body);
     return { status: 'Product created', data: { ...body } };

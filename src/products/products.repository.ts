@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { Injectable } from '@nestjs/common';
+import { ProductsDTO } from './dto/products.dto';
 @Injectable()
 export class ProductsRepository {
-  private products: any[] = [];
-  saveProduct(product: any) {
+  private products: ProductsDTO[] = [];
+  saveProduct(product: ProductsDTO) {
     this.products.push(product);
   }
   getProducts() {
