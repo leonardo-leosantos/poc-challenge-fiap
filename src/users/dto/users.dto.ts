@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { IsNotEmpty, IsString, IsEmail, IsInt } from 'class-validator';
 import { UniqueEmail } from '../validators/users.validator';
 

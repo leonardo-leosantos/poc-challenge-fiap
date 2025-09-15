@@ -1,7 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { IsNotEmpty, IsInt, IsDecimal, IsArray } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsInt,
+  IsDecimal,
+  IsArray,
+  IsEmail,
+} from 'class-validator';
 
 export class ProductsDTO {
+  @IsEmail()
+  userEmail: string;
+
   @IsNotEmpty()
   nome: string;
 
@@ -18,10 +27,7 @@ export class ProductsDTO {
   caracteristicas: CaracteristicasDTO[];
 
   @IsArray()
-  imagens: {
-    nome: string;
-    descricao: string;
-  };
+  imagens: ImagensDTO[];
 
   @IsNotEmpty()
   categoria: string;
@@ -38,5 +44,10 @@ class CaracteristicasDTO {
   nome: string;
 
   @IsNotEmpty()
+  descricao: string;
+}
+
+class ImagensDTO {
+  nome: string;
   descricao: string;
 }
