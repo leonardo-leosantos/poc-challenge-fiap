@@ -1,24 +1,39 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { UsersDTO } from './dto/users.dto';
 import { UsersEntity } from './users.entity';
+
 @Injectable()
 export class UsersRepository {
-  private users: UsersEntity[] = [];
+  constructor(
+    @InjectRepository(UsersEntity)
+    private readonly usersRepository: Repository<UsersEntity>,
+  ) {}
 
-  saveUser(user: UsersEntity) {
-    this.users.push(user);
+  async saveUser(user: UsersEntity): Promise<UsersEntity> {
+    return await this.usersRepository.save(user);
   }
 
-  getUsers() {
-    return this.users;
+  async getUsers(): Promise<UsersEntity[]> {
+    return await this.usersRepository.find();
   }
 
-  async verifyUserByEmail(email: string) {
-    const userByEmail = await new Promise<UsersDTO | undefined>((resolve) => {
-      const foundUser = this.users.find((user) => user.email === email);
-      resolve(foundUser);
-    });
+  async getUserById(id: string): Promise<UsersEntity | null> {
+    return await this.usersRepository.findOne({ where: { id } });
+  }
 
-    return userByEmail !== undefined;
+  async updateUser(id: string, userData: Partial<UsersEntity>): Promise<UsersEntity> {
+    await this.usersRepository.update(id, userData);
+    return await this.getUserById(id);
+  }
+
+  async deleteUser(id: string): Promise<void> {
+    await this.usersRepository.delete(id);
+  }
+
+  async verifyUserByEmail(email: string): Promise<boolean> {
+    const user = await this.usersRepository.findOne({ where: { email } });
+    return user !== null;
   }
 }

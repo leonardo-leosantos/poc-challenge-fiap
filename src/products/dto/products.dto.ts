@@ -32,11 +32,9 @@ export class ProductsDTO {
   @IsNotEmpty()
   categoria: string;
 
-  @IsNotEmpty()
-  dataCriacao: Date;
+  dataCriacao?: Date;
 
-  @IsNotEmpty()
-  dataAtualizacao: Date;
+  dataAtualizacao?: Date;
 }
 
 class CaracteristicasDTO {
